@@ -1,11 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Wars </title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Star Wars</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navlogo">
+        <img class="starwarslogo" src="images/starwars logo.png" alt="" />
+      </nav>
+    </header>
     <!-- Write your implementation here -->
-</body>
+    <main>
+      <div class="row" id="row"></div>
+    </main>
+
+    <script>
+      let row = document.getElementById("row");
+      let images = [
+        "face1.jpeg",
+        "face2.jpeg",
+        "face3.jpeg",
+        "face4.jpeg",
+        "face5.jpeg",
+        "face6.jpeg",
+        "face7.jpeg",
+        "face8.jpeg",
+        "face9.jpeg",
+        "faceMustUse.jpeg",
+      ];
+      const body = document.getElementsByTagName("body")[0];
+      body.onload = () => {
+        fetch("https://swapi.dev/api/people")
+          .then((resp) => resp.json())
+          .then((data) => {
+            data.results.forEach((item, index) => {
+             
+              let {name,gender, height} = item;
+              //console.log(item);
+              let div = document.createElement("div");
+              div.setAttribute("class", "row-content");
+              div.innerHTML = `
+                <img src='./images/${images[index]}' alt='Face${
+                index + 1
+              } needs to be here.' class='character-img'>
+                
+                <div class='details-container'>
+                    <h3 class='name-tag'>${name}</h3>
+                    <div class="extraInfo">
+                    <span class='gender-display' id='id${index}'>Gender: ${gender}</span>
+                    <span class='height-display'>Height: ${height}cm</span>
+                    </div>
+                </div>
+                
+                 `;
+              row.append(div);
+            });
+          });
+      };
+    </script>
+  </body>
 </html>
