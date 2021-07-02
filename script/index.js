@@ -17,7 +17,6 @@ function main(){
     const response = await fetch("https://swapi.dev/api/people")
     const data = await response.json() 
     data.results.forEach((item, index) => {
-
           let {name,gender, height} = item;
           //console.log(item);
           let div = document.createElement("div");
